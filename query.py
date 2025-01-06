@@ -8,6 +8,7 @@ AuthorPerson = aliased(Person, name="author_person")
 fandom_q = (
     select(
         Book.id,
+        Fan.id,
         FanPerson.name.label("fan_name"),
         Book.title,
         AuthorPerson.name.label("author_name"),
@@ -26,5 +27,5 @@ fandom_q = (
 class Fandom(Base):
     __table__ = fandom_q
     __mapper_args__ = {
-        "primary_key": [Book.id]
-    }  # using Book.id as the primary key will ensure we will see all the rows
+        "primary_key": [Book.id, Fan.id]
+    }  # using Book.id and Fan.id as the primary ensures we see all the rows
